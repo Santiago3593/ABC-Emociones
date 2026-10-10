@@ -1,0 +1,411 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const emotions = [
+	{
+		id: "alegria",
+		name: "Alegría",
+		color: "cielo",
+		description:
+			"Una emoción relacionada con el bienestar, el interés y las experiencias agradables.",
+		detail:
+			"La alegría puede aparecer cuando algo resulta agradable, interesante o significativo. En algunos niños dentro del espectro autista puede expresarse de maneras muy particulares: mediante entusiasmo intenso, movimiento, palabras repetitivas, sonrisas o simplemente una actitud de mayor tranquilidad. La ausencia de una expresión facial evidente no significa necesariamente ausencia de alegría.",
+	},
+	{
+		id: "tristeza",
+		name: "Tristeza",
+		color: "serenidad",
+		description:
+			"Aparece ante pérdidas, decepciones, cambios o situaciones que generan malestar.",
+		detail:
+			"La tristeza puede estar relacionada con una pérdida, una decepción, sentirse incomprendido o experimentar una situación difícil. Un niño autista puede expresar tristeza de una forma diferente a la esperada socialmente. Puede aislarse, buscar un espacio tranquilo, hablar menos o mostrar cambios en su comportamiento. Es importante observar el contexto y no interpretar una única conducta como una señal universal.",
+	},
+	{
+		id: "enojo",
+		name: "Enojo",
+		color: "rosa",
+		description:
+			"Una respuesta emocional que puede aparecer cuando existe frustración, injusticia o una necesidad que no ha sido comprendida.",
+		detail:
+			"El enojo es una emoción normal y puede señalar que algo resulta injusto, difícil o desagradable. En algunos niños autistas puede intensificarse cuando existe sobrecarga sensorial, cambios inesperados, dificultades para comunicar una necesidad o interrupciones de una actividad importante. El objetivo no debe ser castigar la emoción, sino ayudar a identificar qué la provocó y desarrollar formas seguras de expresarla.",
+	},
+	{
+		id: "miedo",
+		name: "Miedo",
+		color: "lavanda",
+		description:
+			"Una respuesta ante algo percibido como amenazante, desconocido o impredecible.",
+		detail:
+			"El miedo prepara al organismo para responder ante una posible amenaza. Las situaciones nuevas, los cambios inesperados, determinados sonidos, espacios o experiencias sociales pueden resultar especialmente difíciles para algunos niños autistas. Anticipar lo que ocurrirá, explicar los cambios con claridad y permitir estrategias de regulación puede ayudar a disminuir la incertidumbre.",
+	},
+	{
+		id: "ansiedad",
+		name: "Ansiedad",
+		color: "malva",
+		description:
+			"Puede aparecer cuando existe preocupación, incertidumbre o sensación de falta de control.",
+		detail:
+			"La ansiedad no es exclusiva del autismo, pero puede estar relacionada con situaciones de incertidumbre, demandas sociales, cambios de rutina o experiencias sensoriales difíciles. Puede manifestarse como inquietud, evitación, necesidad de repetir preguntas, dificultad para concentrarse o cambios en el comportamiento. Reconocer los factores que la desencadenan puede ayudar a crear ambientes más predecibles.",
+	},
+	{
+		id: "frustracion",
+		name: "Frustración",
+		color: "durazno",
+		description:
+			"Surge cuando una meta, necesidad o expectativa no puede alcanzarse como se esperaba.",
+		detail:
+			"La frustración aparece cuando existe una diferencia entre lo que una persona espera y lo que realmente ocurre. Las dificultades de comunicación, una tarea demasiado complicada, perder en un juego o tener que abandonar una actividad pueden provocarla. Enseñar estrategias para pedir ayuda, dividir una tarea en pasos y anticipar los cambios puede favorecer una mejor regulación.",
+	},
+	{
+		id: "verguenza",
+		name: "Vergüenza",
+		color: "rosa",
+		description:
+			"Puede aparecer cuando una persona siente que ha cometido un error o que está siendo observada o juzgada.",
+		detail:
+			"La vergüenza está relacionada con la percepción de cómo los demás nos ven. Las situaciones sociales pueden resultar especialmente complejas cuando existen dificultades para interpretar determinadas reglas implícitas. Es importante evitar ridiculizar errores y ofrecer explicaciones claras sobre las situaciones sociales, procurando que el niño comprenda lo ocurrido sin sentirse definido por un error.",
+	},
+	{
+		id: "calma",
+		name: "Calma",
+		color: "menta",
+		description:
+			"Un estado de tranquilidad en el que resulta más sencillo sentirse seguro y regular las emociones.",
+		detail:
+			"La calma no significa ausencia de emociones. Es un estado en el que una persona puede sentirse suficientemente segura para descansar, concentrarse o procesar lo que está experimentando. Cada niño puede tener estrategias diferentes para alcanzar este estado: silencio, movimiento, música, objetos conocidos, espacios con poca estimulación o actividades de interés.",
+	},
+];
+---
+
+<Layout title="Información">
+	<main class="information-page">
+		<section class="intro">
+			<h1>Comprender también es sentir.</h1>
+			<p>
+				Las emociones forman parte de nuestra vida cotidiana. Conocerlas y
+				comprender cómo pueden manifestarse de diferentes maneras nos ayuda a
+				entendernos mejor a nosotros mismos y a quienes nos rodean.
+			</p>
+		</section>
+		<section class="emotions-section">
+			<div class="section-heading">
+				<h2>Distintas emociones</h2>
+			</div>
+			<div class="emotion-grid">
+				{
+					emotions.map((emotion) => (
+						<article class:list={["emotion-card", `emotion-${emotion.color}`]}>
+							<h3>{emotion.name}</h3>
+							<p>{emotion.description}</p>
+							<button class="read-more" type="button" data-dialog={emotion.id}>
+								<span>Conocer más</span>
+								<span>→</span>
+							</button>
+							<dialog id={`dialog-${emotion.id}`} class="emotion-dialog">
+								<div class="dialog-content">
+									<div class="dialog-header">
+										<div class="dialog-icon" />
+										<div>
+											<span class="dialog-label">EMOCIÓN</span>
+											<h2>{emotion.name}</h2>
+										</div>
+									</div>
+									<div class="dialog-body">
+										<p>{emotion.detail}</p>
+									</div>
+									<button
+										class="close-dialog"
+										type="button"
+										data-close={emotion.id}
+										aria-label={`Cerrar información sobre ${emotion.name}`}
+									>
+										←
+									</button>
+								</div>
+							</dialog>
+						</article>
+					))
+				}
+			</div>
+		</section>
+		<section class="information-footer">
+			<h2>Todas las emociones tienen algo que decir.</h2>
+			<p>
+				Aprender a reconocerlas es un primer paso para comprendernos y cuidar
+				nuestra salud emocional.
+			</p>
+		</section>
+	</main>
+	<script>
+		const openButtons = document.querySelectorAll("[data-dialog]");
+		const closeButtons = document.querySelectorAll("[data-close]");
+
+		openButtons.forEach((button) => {
+			button.addEventListener("click", () => {
+				const id = button.getAttribute("data-dialog");
+				const dialog = document.getElementById(`dialog-${id}`);
+				if (dialog instanceof HTMLDialogElement) {
+					dialog.showModal();
+				}
+			});
+		});
+
+		closeButtons.forEach((button) => {
+			button.addEventListener("click", () => {
+				const id = button.getAttribute("data-close");
+				const dialog = document.getElementById(`dialog-${id}`);
+				if (dialog instanceof HTMLDialogElement) {
+					dialog.close();
+				}
+			});
+		});
+
+		document.querySelectorAll("dialog").forEach((dialog) => {
+			dialog.addEventListener("click", (event) => {
+				if (event.target === dialog) {
+					dialog.close();
+				}
+			});
+		});
+	</script>
+	<style>
+		:global(body) {
+			margin: 0;
+			background: #f8f9f7;
+			color: #3e4852;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+		.information-page {
+			width: min(1200px, 100%);
+			margin: 0 auto;
+			padding: 70px 30px 80px;
+			box-sizing: border-box;
+		}
+		.intro {
+			max-width: 850px;
+			margin: 0 auto 75px;
+			text-align: center;
+		}
+		.intro h1 {
+			margin: 0;
+			font-size: clamp(2.5rem, 6vw, 4.5rem);
+			line-height: 1.05;
+			letter-spacing: -2px;
+			color: #3e4852;
+		}
+		.intro > p {
+			max-width: 700px;
+			margin: 22px auto;
+			color: #77818a;
+			font-size: 1.05rem;
+			line-height: 1.7;
+		}
+		.section-heading {
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-end;
+			gap: 30px;
+			margin-bottom: 25px;
+		}
+		.section-heading h2 {
+			margin: 0;
+			font-size: 2rem;
+			letter-spacing: -0.7px;
+		}
+		.emotion-grid {
+			display: grid;
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+			gap: 18px;
+		}
+		.emotion-card {
+			min-height: 290px;
+			display: flex;
+			flex-direction: column;
+			padding: 22px;
+			box-sizing: border-box;
+			border-radius: 23px;
+			border: 2px solid transparent;
+			box-shadow: 0 8px 22px rgba(62, 72, 82, 0.06);
+			transition:
+				transform 0.2s ease,
+				box-shadow 0.2s ease;
+		}
+		.emotion-card:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 15px 30px rgba(62, 72, 82, 0.1);
+		}
+		.emotion-cielo {
+			background: #c7e3e8;
+		}
+		.emotion-serenidad {
+			background: #a9c9d6;
+		}
+		.emotion-lavanda {
+			background: #d2c7e5;
+		}
+		.emotion-menta {
+			background: #c5dec9;
+		}
+		.emotion-rosa {
+			background: #e8c7d0;
+		}
+		.emotion-durazno {
+			background: #f0d2b8;
+		}
+		.emotion-malva {
+			background: #b8a9c9;
+		}
+		.emotion-card h3 {
+			margin: 28px 0 9px;
+			font-size: 1.35rem;
+		}
+		.emotion-card > p {
+			margin: 0;
+			color: rgba(62, 72, 82, 0.72);
+			font-size: 0.86rem;
+			line-height: 1.55;
+		}
+		.read-more {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			width: 100%;
+			margin-top: auto;
+			padding: 11px 13px;
+			border: 0;
+			border-radius: 12px;
+			background: rgba(255, 255, 255, 0.48);
+			color: #3e4852;
+			font: inherit;
+			font-size: 0.78rem;
+			font-weight: 750;
+			cursor: pointer;
+			transition:
+				background 0.18s ease,
+				transform 0.18s ease;
+		}
+		.read-more:hover {
+			background: rgba(255, 255, 255, 0.72);
+			transform: translateX(3px);
+		}
+		.emotion-dialog {
+			width: min(600px, calc(100% - 30px));
+			padding: 0;
+			border: none;
+			border-radius: 28px;
+			background: #f8f9f7;
+			color: #3e4852;
+			box-shadow: 0 30px 80px rgba(62, 72, 82, 0.22);
+		}
+		.emotion-dialog::backdrop {
+			background: rgba(62, 72, 82, 0.35);
+			backdrop-filter: blur(5px);
+		}
+		.dialog-content {
+			position: relative;
+			padding: 35px;
+		}
+		.dialog-header {
+			display: flex;
+			align-items: center;
+			gap: 16px;
+			margin-bottom: 25px;
+		}
+		.dialog-icon {
+			width: 15px;
+			height: 60px;
+			border-radius: 18px;
+			background: rgb(235, 235, 235);
+		}
+		.dialog-label {
+			color: #77818a;
+			font-size: 0.68rem;
+			font-weight: 800;
+			letter-spacing: 2px;
+		}
+		.dialog-header h2 {
+			margin: 4px 0 0;
+			font-size: 2rem;
+		}
+		.dialog-body {
+			padding: 20px;
+			border-radius: 17px;
+			background: #f1f5f5;
+		}
+		.dialog-body p {
+			margin: 0;
+			color: #77818a;
+			font-size: 0.95rem;
+			line-height: 1.8;
+		}
+		.close-dialog {
+			position: absolute;
+			right: 20px;
+			bottom: 18px;
+			width: 42px;
+			height: 42px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			border: none;
+			border-radius: 12px;
+			background: #c7e3e8;
+			color: #3e4852;
+			font-size: 1.4rem;
+			cursor: pointer;
+			transition:
+				transform 0.18s ease,
+				background 0.18s ease;
+		}
+		.close-dialog:hover {
+			transform: translateX(-4px);
+			background: #a9c9d6;
+		}
+		.information-footer {
+			max-width: 700px;
+			margin: 80px auto 0;
+			padding: 45px 30px;
+			text-align: center;
+			background: #f1f5f5;
+			border-radius: 25px;
+		}
+		.information-footer h2 {
+			margin: 0 0 10px;
+			font-size: 1.7rem;
+		}
+		.information-footer p {
+			max-width: 500px;
+			margin: auto;
+			color: #77818a;
+			line-height: 1.6;
+			font-size: 0.9rem;
+		}
+		@media (max-width: 950px) {
+			.emotion-grid {
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+			}
+		}
+		@media (max-width: 600px) {
+			.information-page {
+				padding: 45px 16px 60px;
+			}
+			.intro {
+				margin-bottom: 55px;
+			}
+			.section-heading {
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 5px;
+			}
+			.emotion-grid {
+				grid-template-columns: 1fr;
+			}
+			.emotion-card {
+				min-height: 260px;
+			}
+			.dialog-content {
+				padding: 25px 20px 75px;
+			}
+		}
+	</style>
+</Layout>

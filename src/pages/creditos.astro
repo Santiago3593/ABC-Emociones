@@ -1,0 +1,307 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const integrantes = [
+	"Arias Mora Zabdi Zoe",
+	"Bernal Baéz Luis Enrique",
+	"Fuentes Hernández Damián Santiago",
+	"Martinez Gonzalez Saúl Faraday",
+	"Pedroza Velazco Yoshua Santiago",
+];
+---
+
+<Layout title="Créditos">
+	<main class="credits-page">
+		<div class="decoration decoration-one" aria-hidden="true">✳</div>
+		<div class="decoration decoration-two" aria-hidden="true">♡</div>
+
+		<section class="credits-card" aria-labelledby="credits-title">
+			<div class="card-top-line" aria-hidden="true"></div>
+
+			<header class="credits-header">
+				<h1 id="credits-title">Créditos</h1>
+			</header>
+
+			<section class="team-section" aria-labelledby="team-title">
+				<h2 id="team-title">
+					<span class="section-icon" aria-hidden="true"></span> Integrantes del equipo
+				</h2>
+				<ol class="team-list">
+					{
+						integrantes.map((integrante) => (
+							<li>
+								<span class="member-number" />
+								<span class="member-name">{integrante}</span>
+							</li>
+						))
+					}
+				</ol>
+			</section>
+
+			<div class="soft-divider" aria-hidden="true"><span>✦</span></div>
+
+			<section class="school-section" aria-labelledby="school-title">
+				<h2 id="school-title">
+					<span class="section-icon school-icon" aria-hidden="true"></span> Datos
+					académicos
+				</h2>
+				<dl class="school-details">
+					<div class="detail-row">
+						<dt>Nombre del plantel</dt>
+						<dd>CBTis No. 168 "Francisco I. Madero"</dd>
+					</div>
+					<div class="detail-row">
+						<dt>Carrera</dt>
+						<dd>Programación</dd>
+					</div>
+					<div class="detail-row">
+						<dt>Submódulo</dt>
+						<dd>Construye aplicaciones web</dd>
+					</div>
+					<div class="detail-row">
+						<dt>Semestre</dt>
+						<dd>5to</dd>
+					</div>
+				</dl>
+			</section>
+
+			<footer class="credits-footer">
+				<p>Aprender a comprendernos también es crecer.</p>
+			</footer>
+		</section>
+	</main>
+	<style>
+		:global(*) {
+			box-sizing: border-box;
+		}
+		:global(body) {
+			margin: 0;
+			background: #f8f9f7;
+			color: #3e4852;
+      font-family: 'Nunito Sans', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+		}
+		.credits-page {
+			min-height: calc(100vh - 72px);
+			position: relative;
+			overflow: hidden;
+			display: grid;
+			place-items: center;
+			padding: 54px 22px 76px;
+			background:
+				radial-gradient(
+					ellipse at 8% 18%,
+					rgba(199, 227, 232, 0.35),
+					transparent 30%
+				),
+				radial-gradient(
+					ellipse at 92% 78%,
+					rgba(232, 199, 208, 0.34),
+					transparent 32%
+				),
+				#f8f9f7;
+		}
+		.credits-card {
+			width: min(760px, 100%);
+			position: relative;
+			z-index: 1;
+			overflow: hidden;
+			padding: clamp(28px, 5vw, 52px) clamp(22px, 6vw, 62px) 28px;
+			border: 1px solid rgba(184, 169, 201, 0.55);
+			border-radius: 28px;
+			background: rgba(255, 255, 255, 0.88);
+			box-shadow:
+				0 22px 65px rgba(62, 72, 82, 0.09),
+				0 5px 14px rgba(184, 169, 201, 0.12);
+		}
+		.card-top-line {
+			position: absolute;
+			inset: 0 0 auto;
+			height: 7px;
+			background: linear-gradient(
+				90deg,
+				#e8c7d0,
+				#d2c7e5,
+				#c7e3e8,
+				#c5dec9,
+				#f0d2b8
+			);
+		}
+		.credits-header {
+			text-align: center;
+		}
+		h1 {
+			margin: 0;
+			color: #3e4852;
+			font-size: clamp(2.2rem, 6vw, 3.2rem);
+			letter-spacing: -1.8px;
+			line-height: 1.1;
+		}
+		.team-section,
+		.school-section {
+			margin-top: 34px;
+		}
+		h2 {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			margin: 0 0 16px;
+			font-size: 1.02rem;
+			font-weight: 750;
+		}
+		.section-icon {
+			width: 8px;
+			height: 32px;
+			display: grid;
+			place-items: center;
+			flex: 0 0 auto;
+			border-radius: 10px;
+			background: #d2c7e5;
+			color: #5d526f;
+			font-size: 1rem;
+		}
+		.school-icon {
+			background: #c7e3e8;
+			color: #46636a;
+		}
+		.team-list {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+			display: grid;
+			gap: 9px;
+		}
+		.team-list li {
+			min-height: 49px;
+			display: flex;
+			align-items: center;
+			gap: 14px;
+			padding: 9px 14px;
+			border: 1px solid #eeeaf2;
+			border-radius: 13px;
+			background: linear-gradient(
+				100deg,
+				rgba(210, 199, 229, 0.16),
+				rgba(255, 255, 255, 0.8) 70%
+			);
+		}
+		.member-number {
+			width: 7px;
+			height: 29px;
+			border-radius: 9px;
+			background: #e8c7d0;
+		}
+		.member-name {
+			color: #3e4852;
+			font-size: 0.9rem;
+			font-weight: 600;
+		}
+		.soft-divider {
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			margin: 29px 0 0;
+			color: #b8a9c9;
+		}
+		.soft-divider::before,
+		.soft-divider::after {
+			content: "";
+			height: 1px;
+			flex: 1;
+			background: #e9e3ef;
+		}
+		.soft-divider span {
+			font-size: 0.8rem;
+		}
+		.school-details {
+			margin: 0;
+			display: grid;
+			gap: 10px;
+		}
+		.detail-row {
+			display: grid;
+			grid-template-columns: minmax(145px, 0.78fr) 1.4fr;
+			gap: 14px;
+			padding: 13px 15px;
+			border-radius: 12px;
+			background: #f5f7f6;
+			border: 1px solid #edf0ef;
+		}
+		dt {
+			color: #77818a;
+			font-size: 0.82rem;
+			font-weight: 700;
+		}
+		dd {
+			margin: 0;
+			color: #3e4852;
+			font-size: 0.88rem;
+			font-weight: 600;
+		}
+		.credits-footer {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 8px;
+			margin-top: 32px;
+			padding-top: 21px;
+			border-top: 1px dashed #e4dde9;
+			color: #77818a;
+			text-align: center;
+		}
+		.credits-footer p {
+			margin: 0;
+			font-size: 0.78rem;
+		}
+		.decoration {
+			position: absolute;
+			color: #b8a9c9;
+			opacity: 0.5;
+			pointer-events: none;
+		}
+		.decoration-one {
+			top: 12%;
+			left: max(4%, calc((100% - 1100px) / 2));
+			font-size: 3.4rem;
+			transform: rotate(-12deg);
+		}
+		.decoration-two {
+			right: max(5%, calc((100% - 1100px) / 2));
+			bottom: 13%;
+			font-size: 4.2rem;
+			color: #e8c7d0;
+			transform: rotate(12deg);
+		}
+		@media (max-width: 560px) {
+			.credits-page {
+				padding: 30px 13px 48px;
+			}
+			.credits-card {
+				border-radius: 22px;
+				padding: 32px 18px 23px;
+			}
+			.eyebrow {
+				font-size: 0.58rem;
+				letter-spacing: 1.4px;
+			}
+			.team-section,
+			.school-section {
+				margin-top: 28px;
+			}
+			.detail-row {
+				grid-template-columns: 1fr;
+				gap: 5px;
+				padding: 12px;
+			}
+			.decoration-one {
+				top: 4%;
+				left: 2%;
+				font-size: 2rem;
+			}
+			.decoration-two {
+				right: 1%;
+				bottom: 5%;
+				font-size: 2.7rem;
+			}
+		}
+	</style>
+</Layout>

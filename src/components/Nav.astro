@@ -1,0 +1,150 @@
+---
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+
+const pages = [
+  {
+    name: "Información",
+    href: "/informacion",
+  },
+  {
+    name: "Historia interactiva",
+    href: "/historia-interactiva",
+  },
+  {
+    name: "ABC de las emociones",
+    href: "/abc-emociones",
+  },
+  {
+    name: "Créditos",
+    href: "/creditos",
+  },
+];
+---
+
+<nav class="page-nav">
+  <a href="/" class="nav-title">
+    <span class="back-arrow">←</span>
+    <span>{title}</span>
+  </a>
+  <div class="nav-links">
+    {
+      pages.map((page) => (
+        <a
+          href={page.href}
+          class:list={[
+            "nav-link",
+            { active: page.href === Astro.url.pathname },
+          ]}
+        >
+          {page.name}
+        </a>
+      ))
+    }
+  </div>
+</nav>
+<style>
+  .page-nav {
+    width: 100%;
+    min-height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 25px;
+    padding: 12px 28px;
+    box-sizing: border-box;
+    background: rgba(248, 249, 247, 0.9);
+    border-bottom: 2px solid #f1f5f5;
+    box-shadow: 0 4px 18px rgba(62, 72, 82, 0.05);
+    backdrop-filter: blur(12px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-shrink: 0;
+    color: #3e4852;
+    text-decoration: none;
+    font-size: 1.15rem;
+    font-weight: 800;
+  }
+  .back-arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    background: #c7e3e8;
+    font-size: 1.25rem;
+    transition: transform 0.18s ease, background 0.18s ease;
+  }
+  .nav-title:hover .back-arrow {
+    transform: translateX(-4px);
+    background: #a9c9d6;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .nav-link {
+    padding: 9px 13px;
+    border-radius: 12px;
+    color: #77818a;
+    text-decoration: none;
+    font-size: 0.82rem;
+    font-weight: 650;
+    transition:
+      background 0.18s ease,
+      color 0.18s ease,
+      transform 0.18s ease;
+  }
+  .nav-link:hover {
+    color: #3e4852;
+    background: #f1f5f5;
+    transform: translateY(-1px);
+  }
+  .nav-link.active {
+    color: #3e4852;
+    background: #d2c7e5;
+    font-weight: 800;
+  }
+  @media (max-width: 850px) {
+    .page-nav {
+      align-items: flex-start;
+      padding: 12px 18px;
+    }
+    .nav-links {
+      gap: 3px;
+    }
+    .nav-link {
+      font-size: 0.74rem;
+      padding: 8px 9px;
+    }
+  }
+  @media (max-width: 650px) {
+    .page-nav {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+    }
+    .nav-links {
+      justify-content: flex-start;
+      overflow-x: auto;
+      flex-wrap: nowrap;
+      padding-bottom: 3px;
+    }
+    .nav-link {
+      white-space: nowrap;
+    }
+  }
+</style>

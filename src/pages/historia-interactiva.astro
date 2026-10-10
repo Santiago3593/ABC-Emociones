@@ -1,0 +1,914 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const pages = [
+	{
+		title: "Leo",
+		subtitle: "Una historia sobre sentir diferente",
+		text: "Leo es un niño curioso. Le gusta dibujar, aprender cosas nuevas y pasar tiempo con las personas que quiere. Algunas cosas que para otros son sencillas, para él pueden sentirse de una manera diferente.",
+		color: "cielo",
+		drawing: "leo",
+	},
+	{
+		title: "Mamá y papá",
+		subtitle: "Un lugar seguro",
+		text: "En casa, Leo encuentra un lugar donde puede sentirse tranquilo. Su mamá y su papá intentan escuchar lo que necesita, incluso cuando a veces le cuesta explicar exactamente cómo se siente.",
+		color: "rosa",
+		drawing: "parents",
+	},
+	{
+		title: "La escuela",
+		subtitle: "Un mundo lleno de cosas nuevas",
+		text: "Cada mañana Leo llega a la escuela. Hay muchas voces, pasos, luces y personas. Algunas veces todo eso le resulta emocionante. Otras veces puede ser demasiado.",
+		color: "lavanda",
+		drawing: "school",
+	},
+	{
+		title: "La maestra",
+		subtitle: "Cuando alguien escucha",
+		text: "La maestra de Leo ha aprendido que cada persona aprende de una manera distinta. Cuando Leo necesita más tiempo para entender algo, ella intenta explicárselo de otra forma.",
+		color: "menta",
+		drawing: "teacher",
+	},
+	{
+		title: "Sus amigos",
+		subtitle: "Aprender a entenderse",
+		text: "Leo quiere jugar con sus compañeros. A veces no sabe cuándo entrar en una conversación o cómo interpretar una broma. Poco a poco aprende a preguntar cuando algo no le queda claro.",
+		color: "durazno",
+		drawing: "friends",
+	},
+	{
+		title: "El recreo",
+		subtitle: "Demasiadas cosas al mismo tiempo",
+		text: "Durante el recreo hay gritos, carreras y muchos sonidos. Leo comienza a sentirse incómodo. Sus manos se tensan y quiere alejarse del ruido. No está siendo malo: su cuerpo le está diciendo que necesita un descanso.",
+		color: "serenidad",
+		drawing: "recess",
+	},
+	{
+		title: "¿Qué está sintiendo?",
+		subtitle: "Las emociones pueden ser difíciles de explicar",
+		text: "Leo no siempre puede decir inmediatamente qué siente. Puede estar enojado, preocupado, triste o simplemente saturado. Aprender a reconocer esas señales le ayuda a entenderse mejor.",
+		color: "malva",
+		drawing: "emotions",
+	},
+	{
+		title: "Un pequeño descanso",
+		subtitle: "Encontrar una forma de estar tranquilo",
+		text: "Leo encuentra un lugar tranquilo. Respira, se toma un momento y deja que su cuerpo se calme. Cuando está preparado, puede volver a lo que estaba haciendo.",
+		color: "menta",
+		drawing: "calm",
+	},
+	{
+		title: "Todos sentimos diferente",
+		subtitle: "Comprender también es cuidar",
+		text: "Leo descubre que no necesita sentir exactamente como los demás. Sus emociones son reales y merecen ser escuchadas. Las personas que lo rodean también pueden aprender a comprenderlo mejor.",
+		color: "cielo",
+		drawing: "ending",
+	},
+];
+
+const spreads = [];
+
+for (let i = 0; i < pages.length; i += 2) {
+	spreads.push({
+		left: pages[i],
+		right: pages[i + 1] ?? null,
+	});
+}
+---
+
+<Layout title="Historia interactiva">
+	<main class="story-page">
+		<section class="story-intro">
+			<h1>Conoce la historia de Leo</h1>
+			<p>
+				Pasa las páginas y acompaña a Leo mientras descubre cómo comprender lo
+				que siente.
+			</p>
+		</section>
+		<section class="book-area">
+			<div class="book-shadow"></div>
+			<div class="book" id="storyBook">
+				<article class="book-page page-left" id="leftPage">
+					<div class="page-content"></div>
+				</article>
+				<article class="book-page page-right" id="rightPage">
+					<div class="page-content"></div>
+				</article>
+				<div class="book-spine"></div>
+			</div>
+			<div class="book-controls">
+				<button
+					id="previousButton"
+					class="book-button"
+					type="button"
+					aria-label="Página anterior"
+				>
+					←
+				</button>
+				<button
+					id="nextButton"
+					class="book-button"
+					type="button"
+					aria-label="Página siguiente"
+				>
+					→
+				</button>
+			</div>
+		</section>
+		<section class="story-message">
+			<h2>Escuchar también es una forma de cuidar.</h2>
+			<p>
+				Cada persona experimenta el mundo de una manera diferente. Comprender
+				esas diferencias nos ayuda a construir espacios donde todos puedan
+				sentirse seguros.
+			</p>
+		</section>
+	</main>
+	<script define:vars={{ spreads, pages }}>
+		const leftPage = document.getElementById("leftPage");
+
+		const rightPage = document.getElementById("rightPage");
+
+		const previousButton = document.getElementById("previousButton");
+
+		const nextButton = document.getElementById("nextButton");
+
+		let spreadIndex = 0;
+
+		function createDrawing(type) {
+			const drawings = {
+				leo: `
+            <svg viewBox="0 0 300 250">
+              <g class="child-drawing">
+                <circle cx="150" cy="75" r="48"/>
+                <path d="M105 72 Q115 30 150 28 Q190 30 198 72"/>
+                <circle cx="132" cy="72" r="5"/>
+                <circle cx="168" cy="72" r="5"/>
+                <path d="M140 92 Q150 98 160 92"/>
+                <path d="M108 110 Q150 125 192 110"/>
+                <path d="M120 112 L105 190"/>
+                <path d="M180 112 L195 190"/>
+                <path d="M105 190 L85 235"/>
+                <path d="M195 190 L215 235"/>
+                <path d="M102 145 L60 175"/>
+                <path d="M198 145 L240 175"/>
+                <path d="M50 168 Q60 180 70 170"/>
+                <path d="M230 168 Q240 180 250 170"/>
+              </g>
+            </svg>
+          `,
+
+				parents: `
+            <svg viewBox="0 0 300 250">
+              <g class="child-drawing">
+                <circle cx="90" cy="75" r="34"/>
+                <path d="M55 75 Q90 30 125 75"/>
+                <circle cx="82" cy="74" r="4"/>
+                <circle cx="98" cy="74" r="4"/>
+                <path d="M82 90 Q90 94 98 90"/>
+                <path d="M90 110 L90 190"/>
+                <path d="M90 135 L55 165"/>
+                <path d="M90 135 L125 165"/>
+
+                <circle cx="210" cy="75" r="34"/>
+                <path d="M178 67 Q210 25 242 67"/>
+                <circle cx="202" cy="74" r="4"/>
+                <circle cx="218" cy="74" r="4"/>
+                <path d="M202 90 Q210 94 218 90"/>
+                <path d="M210 110 L210 190"/>
+                <path d="M210 135 L175 165"/>
+                <path d="M210 135 L245 165"/>
+
+                <path d="M115 205 Q150 180 185 205"/>
+              </g>
+            </svg>
+          `,
+
+				school: `
+            <svg viewBox="0 0 300 250">
+              <g class="child-drawing">
+                <path d="M55 110 L150 55 L245 110"/>
+                <path d="M70 105 L70 210 L230 210 L230 105"/>
+                <rect x="125" y="155" width="50" height="55"/>
+                <rect x="90" y="125" width="35" height="35"/>
+                <rect x="175" y="125" width="35" height="35"/>
+                <path d="M45 220 L255 220"/>
+                <path d="M145 45 L145 25 L160 25 L160 50"/>
+              </g>
+            </svg>
+          `,
+
+				teacher: `
+            <svg viewBox="0 0 300 250">
+              <g class="child-drawing">
+                <circle cx="150" cy="65" r="38"/>
+                <path d="M115 65 Q150 25 185 65"/>
+                <circle cx="138" cy="65" r="4"/>
+                <circle cx="162" cy="65" r="4"/>
+                <path d="M138 82 Q150 88 162 82"/>
+                <path d="M150 103 L150 200"/>
+                <path d="M150 125 L105 160"/>
+                <path d="M150 125 L195 160"/>
+                <path d="M110 160 L85 195"/>
+                <path d="M190 160 L215 195"/>
+                <rect x="35" y="130" width="65" height="45"/>
+                <path d="M50 150 L80 150"/>
+                <path d="M65 138 L65 162"/>
+              </g>
+            </svg>
+          `,
+
+				friends: `
+            <svg viewBox="0 0 300 250">
+              <g class="child-drawing">
+                <circle cx="85" cy="80" r="28"/>
+                <circle cx="150" cy="65" r="32"/>
+                <circle cx="215" cy="80" r="28"/>
+
+                <circle cx="76" cy="78" r="3"/>
+                <circle cx="94" cy="78" r="3"/>
+                <circle cx="141" cy="63" r="3"/>
+                <circle cx="159" cy="63" r="3"/>
+                <circle cx="206" cy="78" r="3"/>
+                <circle cx="224" cy="78" r="3"/>
+
+                <path d="M75 140 L85 105 L95 140"/>
+                <path d="M135 145 L150 100 L165 145"/>
+                <path d="M205 140 L215 105 L225 140"/>
+
+                <path d="M105 160 Q150 190 195 160"/>
+              </g>
+            </svg>
+          `,
+
+				recess: `
+            <svg viewBox="0 0 300 250">
+              <g class="child-drawing">
+                <circle cx="150" cy="85" r="35"/>
+                <circle cx="138" cy="82" r="4"/>
+                <circle cx="162" cy="82" r="4"/>
+                <path d="M135 105 Q150 95 165 105"/>
+                <path d="M150 120 L150 200"/>
+                <path d="M150 145 L110 175"/>
+                <path d="M150 145 L190 175"/>
+                <path d="M110 175 L95 210"/>
+                <path d="M190 175 L205 210"/>
+
+                <path d="M45 50 L75 75"/>
+                <path d="M255 50 L225 75"/>
+                <path d="M35 110 L75 110"/>
+                <path d="M265 110 L225 110"/>
+                <path d="M60 170 L90 155"/>
+                <path d="M240 170 L210 155"/>
+              </g>
+            </svg>
+          `,
+
+				emotions: `
+            <svg viewBox="0 0 300 250">
+              <g class="child-drawing">
+                <circle cx="150" cy="125" r="70"/>
+                <circle cx="125" cy="105" r="8"/>
+                <circle cx="175" cy="105" r="8"/>
+                <path d="M115 155 Q150 125 185 155"/>
+
+                <path d="M60 55 Q80 35 100 55"/>
+                <path d="M200 55 Q220 35 240 55"/>
+                <path d="M45 200 Q70 220 95 200"/>
+                <path d="M205 200 Q230 220 255 200"/>
+              </g>
+            </svg>
+          `,
+
+				calm: `
+            <svg viewBox="0 0 300 250">
+              <g class="child-drawing">
+                <circle cx="150" cy="105" r="42"/>
+                <circle cx="136" cy="100" r="4"/>
+                <circle cx="164" cy="100" r="4"/>
+                <path d="M135 120 Q150 132 165 120"/>
+                <path d="M150 147 L150 210"/>
+                <path d="M150 165 L110 190"/>
+                <path d="M150 165 L190 190"/>
+
+                <path d="M70 70 Q50 100 70 130"/>
+                <path d="M230 70 Q250 100 230 130"/>
+                <path d="M85 50 Q65 80 85 105"/>
+                <path d="M215 50 Q235 80 215 105"/>
+              </g>
+            </svg>
+          `,
+
+				ending: `
+            <svg viewBox="0 0 300 250">
+              <g class="child-drawing">
+                <circle cx="150" cy="75" r="42"/>
+                <circle cx="136" cy="70" r="5"/>
+                <circle cx="164" cy="70" r="5"/>
+                <path d="M132 90 Q150 108 168 90"/>
+                <path d="M150 117 L150 195"/>
+                <path d="M150 140 L100 170"/>
+                <path d="M150 140 L200 170"/>
+                <path d="M100 170 L80 205"/>
+                <path d="M200 170 L220 205"/>
+
+                <path d="M60 60 L60 35"/>
+                <path d="M45 48 L75 48"/>
+                <path d="M240 60 L240 35"/>
+                <path d="M225 48 L255 48"/>
+              </g>
+            </svg>
+          `,
+			};
+
+			return drawings[type] ?? drawings.leo;
+		}
+
+		const book = document.getElementById("storyBook");
+		let isTurning = false;
+		const TURN_MS = 840;
+
+		function pageMarkup(page, number, side = "") {
+			if (!page) {
+				return ``;
+			}
+			return `
+          <div class="page-content">
+            <div class="story-drawing ${page.color}">${createDrawing(page.drawing)}</div>
+            <span class="page-label">${page.subtitle}</span>
+            <h2>${page.title}</h2>
+            <p>${page.text}</p>
+          </div>`;
+		}
+
+		function renderSpread(index = spreadIndex) {
+			const spread = spreads[index];
+			leftPage.innerHTML = pageMarkup(
+				spread.left,
+				pages.indexOf(spread.left) + 1,
+				"left",
+			);
+			rightPage.innerHTML = pageMarkup(
+				spread.right,
+				spread.right ? pages.indexOf(spread.right) + 1 : pages.length,
+				"right",
+			);
+			leftPage.classList.remove("turning-back", "turning-forward");
+			rightPage.classList.remove("turning-back", "turning-forward");
+			updateButtons();
+		}
+
+		function updateButtons() {
+			previousButton.disabled = spreadIndex === 0 || isTurning;
+			nextButton.disabled = spreadIndex >= spreads.length - 1 || isTurning;
+			previousButton.setAttribute(
+				"aria-disabled",
+				String(previousButton.disabled),
+			);
+			nextButton.setAttribute("aria-disabled", String(nextButton.disabled));
+		}
+
+		function makeFlipSheet(direction) {
+			const current = spreads[spreadIndex];
+			const targetIndex = spreadIndex + (direction === "forward" ? 1 : -1);
+			const target = spreads[targetIndex];
+			const sheet = document.createElement("div");
+			sheet.className = `flip-sheet ${direction === "forward" ? "flip-forward" : "flip-backward"}`;
+			const frontPage = direction === "forward" ? current.right : current.left;
+			const backPage = direction === "forward" ? target.left : target.right;
+			const frontNumber = frontPage
+				? pages.indexOf(frontPage) + 1
+				: pages.length;
+			const backNumber = backPage ? pages.indexOf(backPage) + 1 : pages.length;
+			sheet.innerHTML = `
+          <div class="flip-face flip-front">${pageMarkup(frontPage, frontNumber)}</div>
+          <div class="flip-face flip-back">${pageMarkup(backPage, backNumber)}</div>`;
+			return { sheet, targetIndex };
+		}
+
+		function turnPage(direction) {
+			const targetIndex = spreadIndex + (direction === "forward" ? 1 : -1);
+			if (isTurning || targetIndex < 0 || targetIndex >= spreads.length) return;
+			isTurning = true;
+			updateButtons();
+
+			const { sheet, targetIndex: nextIndex } = makeFlipSheet(direction);
+			renderSpread(nextIndex);
+			book.appendChild(sheet);
+			requestAnimationFrame(() => sheet.classList.add("is-turning"));
+
+			let completed = false;
+			const finishTurn = () => {
+				if (completed) return;
+				completed = true;
+				spreadIndex = nextIndex;
+				sheet.remove();
+				renderSpread();
+				isTurning = false;
+				updateButtons();
+			};
+
+			sheet.addEventListener("animationend", finishTurn, { once: true });
+			window.setTimeout(finishTurn, TURN_MS + 120);
+		}
+
+		function nextSpread() {
+			turnPage("forward");
+		}
+		function previousSpread() {
+			turnPage("backward");
+		}
+
+		nextButton.addEventListener("click", nextSpread);
+		previousButton.addEventListener("click", previousSpread);
+		1;
+
+		let pointerStartX = null;
+		let pointerStartY = null;
+		book.addEventListener("pointerdown", (event) => {
+			if (event.target.closest("button, a")) return;
+			pointerStartX = event.clientX;
+			pointerStartY = event.clientY;
+		});
+
+		book.addEventListener("pointerup", (event) => {
+			if (pointerStartX === null || pointerStartY === null) return;
+			const dx = event.clientX - pointerStartX;
+			const dy = event.clientY - pointerStartY;
+			pointerStartX = null;
+			pointerStartY = null;
+			if (Math.abs(dx) > 55 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+				if (dx < 0) nextSpread();
+				else previousSpread();
+			}
+		});
+
+		book.addEventListener("pointercancel", () => {
+			pointerStartX = null;
+			pointerStartY = null;
+		});
+
+		document.addEventListener("keydown", (event) => {
+			if (event.altKey || event.ctrlKey || event.metaKey) return;
+			if (event.key === "ArrowRight") nextSpread();
+			if (event.key === "ArrowLeft") previousSpread();
+		});
+
+		renderSpread();
+	</script>
+	<style is:global>
+		* {
+			box-sizing: border-box;
+		}
+		body {
+			margin: 0;
+			background: #f8f9f7;
+			color: #3e4852;
+			font-family: Arial, Helvetica, sans-serif;
+		}
+		.story-page {
+			min-height: calc(100vh - 72px);
+			padding: 48px 24px 76px;
+		}
+		.story-intro {
+			max-width: 800px;
+			margin: 0 auto 38px;
+			text-align: center;
+		}
+		.story-intro h1 {
+			margin: 0;
+			font-size: clamp(2.3rem, 6vw, 4rem);
+			letter-spacing: -2px;
+		}
+		.story-intro p {
+			max-width: 600px;
+			margin: 14px auto 0;
+			color: #77818a;
+			line-height: 1.6;
+		}
+
+		.book-area {
+			position: relative;
+			width: min(1120px, 100%);
+			margin: auto;
+			padding: 12px 0 8px;
+		}
+		.book-shadow {
+			position: absolute;
+			left: 7%;
+			right: 7%;
+			bottom: 30px;
+			height: 44px;
+			border-radius: 50%;
+			background: rgba(62, 72, 82, 0.2);
+			filter: blur(22px);
+		}
+		.book {
+			position: relative;
+			display: grid;
+			grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+			gap: 26px;
+			min-height: 560px;
+			padding: 12px 14px 16px;
+			border-radius: 20px;
+			background: linear-gradient(135deg, #e8c7d0, #d2c7e5 55%, #a9c9d6);
+			box-shadow:
+				0 24px 45px rgba(62, 72, 82, 0.15),
+				0 5px 0 rgba(127, 128, 78, 0.35);
+			perspective: 1800px;
+			isolation: isolate;
+		}
+		.book::before {
+			content: "";
+			position: absolute;
+			inset: 4px;
+			z-index: 12;
+			border: 1px solid rgba(255, 255, 255, 0.75);
+			border-radius: 16px;
+			pointer-events: none;
+		}
+		.book-page {
+			position: relative;
+			z-index: 1;
+			min-width: 0;
+			min-height: 532px;
+			overflow: hidden;
+			border: 1px solid rgba(184, 169, 201, 0.45);
+			border-radius: 14px;
+			background-color: #fffefa;
+			background-image: repeating-linear-gradient(
+				to bottom,
+				transparent 0 31px,
+				rgba(169, 201, 214, 0.22) 32px 33px
+			);
+			box-shadow: inset 0 0 20px rgba(62, 72, 82, 0.035);
+			backface-visibility: hidden;
+		}
+		.page-left {
+			border-radius: 13px 5px 5px 13px;
+		}
+		.page-right {
+			border-radius: 5px 13px 13px 5px;
+		}
+		.page-content {
+			position: relative;
+			z-index: 1;
+			display: flex;
+			flex-direction: column;
+			min-height: 532px;
+			padding: 34px clamp(22px, 3vw, 42px) 38px;
+		}
+		.story-drawing {
+			display: flex;
+			flex: 0 0 145px;
+			align-items: center;
+			justify-content: center;
+			width: min(100%, 220px);
+			height: 145px;
+			align-self: center;
+			margin: 8px auto 18px;
+			overflow: hidden;
+			border: 1px dashed rgba(62, 72, 82, 0.14);
+			border-radius: 18px 14px 19px 13px;
+			background-image: radial-gradient(
+				rgba(255, 255, 255, 0.45) 1px,
+				transparent 1px
+			);
+			background-size: 9px 9px;
+			box-shadow: 3px 4px 0 rgba(62, 72, 82, 0.06);
+		}
+		.story-drawing svg {
+			width: 80%;
+			height: 94%;
+			max-width: 185px;
+			max-height: 140px;
+		}
+		.child-drawing {
+			fill: none;
+			stroke: #3e4852;
+			stroke-width: 3.4;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+		}
+		.story-drawing.cielo {
+			background-color: #c7e3e8;
+		}
+		.story-drawing.rosa {
+			background-color: #e8c7d0;
+		}
+		.story-drawing.lavanda {
+			background-color: #d2c7e5;
+		}
+		.story-drawing.menta {
+			background-color: #c5dec9;
+		}
+		.story-drawing.durazno {
+			background-color: #f0d2b8;
+		}
+		.story-drawing.serenidad {
+			background-color: #a9c9d6;
+		}
+		.story-drawing.malva {
+			background-color: #b8a9c9;
+		}
+		.page-label {
+			display: block;
+			margin-bottom: 5px;
+			color: #77818a;
+			font-size: 0.67rem;
+			font-weight: 800;
+			letter-spacing: 1.2px;
+			line-height: 1.5;
+			text-transform: uppercase;
+		}
+		.page-content h2 {
+			margin: 4px 0 12px;
+			color: #3e4852;
+			font-size: clamp(1.35rem, 2.3vw, 1.8rem);
+			letter-spacing: -0.5px;
+		}
+		.page-content p {
+			max-width: 58ch;
+			margin: 0;
+			color: #66717a;
+			font-size: clamp(0.9rem, 1.3vw, 1rem);
+			line-height: 1.8;
+			overflow-wrap: anywhere;
+		}
+		.book-spine {
+			position: absolute;
+			top: 10px;
+			bottom: 14px;
+			left: 50%;
+			z-index: 11;
+			width: 30px;
+			transform: translateX(-50%);
+			background: linear-gradient(
+				90deg,
+				rgba(62, 72, 82, 0),
+				rgba(62, 72, 82, 0.09) 35%,
+				rgba(255, 255, 255, 0.92) 50%,
+				rgba(62, 72, 82, 0.08) 70%,
+				rgba(62, 72, 82, 0)
+			);
+			pointer-events: none;
+		}
+		.flip-sheet {
+			position: absolute;
+			top: 12px;
+			bottom: 16px;
+			z-index: 8;
+			width: calc(50% - 27px);
+			transform-style: preserve-3d;
+			pointer-events: none;
+			will-change: transform;
+		}
+		.flip-forward {
+			right: 14px;
+			transform-origin: left center;
+		}
+		.flip-backward {
+			left: 14px;
+			transform-origin: right center;
+		}
+		.flip-sheet.is-turning.flip-forward {
+			animation: page-forward 840ms cubic-bezier(0.22, 0.7, 0.18, 1) forwards;
+		}
+		.flip-sheet.is-turning.flip-backward {
+			animation: page-backward 840ms cubic-bezier(0.22, 0.7, 0.18, 1) forwards;
+		}
+		.flip-face {
+			position: absolute;
+			inset: 0;
+			overflow: hidden;
+			border: 1px solid rgba(184, 169, 201, 0.48);
+			border-radius: 9px 14px 14px 9px;
+			background-color: #fffefa;
+			background-image: repeating-linear-gradient(
+				to bottom,
+				transparent 0 31px,
+				rgba(169, 201, 214, 0.22) 32px 33px
+			);
+			box-shadow:
+				0 8px 24px rgba(62, 72, 82, 0.15),
+				inset 0 0 0 4px rgba(255, 255, 255, 0.72);
+			backface-visibility: hidden;
+			-webkit-backface-visibility: hidden;
+		}
+		.flip-front {
+			border-radius: 5px 13px 13px 5px;
+		}
+		.flip-back {
+			transform: rotateY(180deg);
+			border-radius: 13px 5px 5px 13px;
+		}
+		.flip-face .page-content {
+			min-height: 100%;
+			padding: 34px clamp(22px, 3vw, 42px) 38px;
+		}
+		.flip-face .story-drawing {
+			flex-basis: 145px;
+			height: 145px;
+			width: min(100%, 220px);
+		}
+		@keyframes page-forward {
+			0% {
+				transform: rotateY(0) translateX(03);
+			}
+			42% {
+				box-shadow: -18px 10px 26px rgba(62, 72, 82, 0.23);
+			}
+			100% {
+				transform: rotateY(-180deg) translateX(26px);
+				box-shadow: -2px 3px 8px rgba(62, 72, 82, 0.08);
+			}
+		}
+		@keyframes page-backward {
+			0% {
+				transform: rotateY(0) translateX(0);
+			}
+			42% {
+				box-shadow: 18px 10px 26px rgba(62, 72, 82, 0.23);
+			}
+			100% {
+				transform: rotateY(180deg) translateX(-26px);
+				box-shadow: 2px 3px 8px rgba(62, 72, 82, 0.08);
+			}
+		}
+
+		.book-controls {
+			position: relative;
+			z-index: 30;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 28px;
+			margin-top: 26px;
+		}
+		.book-button {
+			position: relative;
+			z-index: 31;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			flex: 0 0 58px;
+			width: 58px;
+			height: 58px;
+			padding: 0;
+			border: 2px solid rgba(184, 169, 201, 0.55);
+			border-radius: 19px;
+			background: #c7e3e8;
+			box-shadow:
+				0 5px 0 #a9c9d6,
+				0 9px 18px rgba(62, 72, 82, 0.09);
+			color: #3e4852;
+			font-size: 1.7rem;
+			line-height: 1;
+			cursor: pointer;
+			pointer-events: auto;
+			touch-action: manipulation;
+			user-select: none;
+			transition:
+				transform 0.16s ease,
+				box-shadow 0.16s ease,
+				background 0.16s ease;
+		}
+		.book-button:hover:not(:disabled) {
+			transform: translateY(-2px);
+			background: #d2c7e5;
+			box-shadow:
+				0 7px 0 #b8a9c9,
+				0 12px 20px rgba(62, 72, 82, 0.12);
+		}
+		.book-button:active:not(:disabled) {
+			transform: translateY(3px);
+			box-shadow: 0 2px 0 #a9c9d6;
+		}
+		.book-button:focus-visible {
+			outline: 3px solid #7f804e;
+			outline-offset: 4px;
+		}
+		.book-button:disabled {
+			opacity: 0.38;
+			box-shadow: none;
+			cursor: not-allowed;
+		}
+		.story-message {
+			max-width: 700px;
+			margin: 72px auto 0;
+			padding: 38px 28px;
+			border: 1px solid rgba(169, 201, 214, 0.55);
+			border-radius: 25px;
+			background: #f1f5f5;
+			text-align: center;
+			box-shadow: 0 12px 30px rgba(62, 72, 82, 0.04);
+		}
+		.story-message h2 {
+			margin: 0 0 10px;
+			font-size: 1.7rem;
+		}
+		.story-message p {
+			max-width: 560px;
+			margin: auto;
+			color: #77818a;
+			font-size: 0.9rem;
+			line-height: 1.7;
+		}
+		@media (max-width: 800px) {
+			.story-page {
+				padding: 38px 14px 56px;
+			}
+			.book {
+				display: block;
+				min-height: 510px;
+				padding: 8px;
+			}
+			.book-page {
+				min-height: 494px;
+				border-radius: 12px;
+			}
+			.page-right {
+				display: none;
+			}
+			.page-content {
+				min-height: 494px;
+				padding: 26px 27px 35px;
+			}
+			.book-spine {
+				display: none;
+			}
+			.flip-sheet {
+				top: 8px;
+				bottom: 8px;
+				left: 8px;
+				right: auto;
+				width: calc(100% - 16px);
+			}
+			.flip-forward {
+				transform-origin: left center;
+			}
+			.flip-backward {
+				transform-origin: right center;
+			}
+			.flip-face .page-content {
+				padding: 26px 27px 35px;
+			}
+			.story-drawing,
+			.flip-face .story-drawing {
+				flex-basis: 125px;
+				height: 125px;
+				width: min(100%, 205px);
+				margin-bottom: 17px;
+			}
+			.page-content p {
+				font-size: 0.95rem;
+			}
+		}
+		@media (max-width: 500px) {
+			.story-page {
+				padding: 30px 12px 48px;
+			}
+			.story-intro h1 {
+				font-size: clamp(2rem, 9vw, 2.6rem);
+				letter-spacing: -1.3px;
+			}
+			.page-content,
+			.flip-face .page-content {
+				padding: 23px 22px 32px;
+			}
+			.story-drawing,
+			.flip-face .story-drawing {
+				flex-basis: 115px;
+				height: 115px;
+				width: min(100%, 185px);
+				margin-bottom: 15px;
+			}
+			.page-content h2 {
+				font-size: 1.4rem;
+			}
+			.page-content p {
+				font-size: 0.9rem;
+				line-height: 1.75;
+			}
+			.book-button {
+				width: 54px;
+				height: 54px;
+				flex-basis: 54px;
+			}
+			.story-message {
+				margin-top: 52px;
+				padding: 29px 21px;
+			}
+		}
+		@media (prefers-reduced-motion: reduce) {
+			.flip-sheet.is-turning.flip-forward,
+			.flip-sheet.is-turning.flip-backward {
+				animation-duration: 1ms;
+			}
+			.book-button {
+				transition: none;
+			}
+		}
+	</style>
+</Layout>

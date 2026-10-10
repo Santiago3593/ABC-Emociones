@@ -1,0 +1,317 @@
+<nav class="game-menu">
+  <div class="background-shape shape-1"></div>
+  <div class="background-shape shape-2"></div>
+  <div class="background-shape shape-3"></div>
+
+  <main class="menu-container">
+    <header class="menu-header">
+      <div class="game-logo" aria-hidden="true">
+        <span class="logo-a">A</span>
+        <span class="logo-b">B</span>
+        <span class="logo-c">C</span>
+      </div>
+
+      <h1>ABC Emociones</h1>
+
+      <p>Un espacio para conocer, explorar y comprender tus emociones</p>
+    </header>
+
+    <section class="menu-options" aria-label="Menú principal">
+      <a href="/informacion" class="menu-option option-blue">
+        <div class="option-icon"></div>
+
+        <div class="option-text">
+          <h2>Información</h2>
+          <p>Conoce más sobre las emociones</p>
+        </div>
+
+        <span class="option-arrow">›</span>
+      </a>
+
+      <a href="/historia-interactiva" class="menu-option option-lavender">
+        <div class="option-icon"></div>
+
+        <div class="option-text">
+          <h2>Historia interactiva</h2>
+          <p>Explora una historia y toma decisiones</p>
+        </div>
+
+        <span class="option-arrow">›</span>
+      </a>
+
+      <a href="/abc-emociones" class="menu-option option-pink">
+        <div class="option-icon"></div>
+
+        <div class="option-text">
+          <h2>ABC de las emociones</h2>
+          <p>Descubre y aprende sobre tus emociones</p>
+        </div>
+
+        <span class="option-arrow">›</span>
+      </a>
+
+      <a href="/creditos" class="menu-option option-mint">
+        <div class="option-icon"></div>
+
+        <div class="option-text">
+          <h2>Créditos</h2>
+          <p>Conoce a quienes hicieron este proyecto</p>
+        </div>
+
+        <span class="option-arrow">›</span>
+      </a>
+    </section>
+  </main>
+</nav>
+
+<style>
+  .game-menu {
+    --nube: #f8f9f7;
+    --cielo: #c7e3e8;
+    --serenidad: #a9c9d6;
+    --lavanda: #d2c7e5;
+    --menta: #c5dec9;
+    --rosa-suave: #e8c7d0;
+    --durazno: #f0d2b8;
+    --malva: #b8a9c9;
+
+    --pizarra: #3e4852;
+    --gris-niebla: #77818a;
+    --linea: #f1f5f5;
+
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    background: var(--nube);
+    color: var(--pizarra);
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  .background-shape {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.55;
+  }
+
+  .shape-1 {
+    width: 300px;
+    height: 300px;
+    top: -150px;
+    left: -100px;
+    background: var(--cielo);
+  }
+
+  .shape-2 {
+    width: 240px;
+    height: 240px;
+    right: -100px;
+    bottom: -80px;
+    background: var(--rosa-suave);
+  }
+
+  .shape-3 {
+    width: 120px;
+    height: 120px;
+    right: 12%;
+    top: 10%;
+    background: var(--lavanda);
+  }
+
+  .menu-container {
+    position: relative;
+    z-index: 2;
+    width: min(760px, 100%);
+    padding: 45px;
+    background: rgba(255, 255, 255, 0.78);
+    border: 2px solid var(--linea);
+    border-radius: 32px;
+    box-shadow: 0 20px 60px rgba(62, 72, 82, 0.1);
+    backdrop-filter: blur(10px);
+  }
+
+  .menu-header {
+    text-align: center;
+    margin-bottom: 35px;
+  }
+
+  .game-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    margin-bottom: 15px;
+  }
+
+  .game-logo span {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 13px;
+    color: var(--pizarra);
+    font-size: 1.4rem;
+    font-weight: 900;
+    box-shadow: 0 5px 12px rgba(62, 72, 82, 0.08);
+  }
+
+  .logo-a {
+    background: var(--cielo);
+    transform: rotate(-6deg);
+  }
+
+  .logo-b {
+    background: var(--lavanda);
+    transform: translateY(-5px);
+  }
+
+  .logo-c {
+    background: var(--rosa-suave);
+    transform: rotate(6deg);
+  }
+
+  .menu-header h1 {
+    margin: 0;
+    color: var(--pizarra);
+    font-size: clamp(2.5rem, 7vw, 4.5rem);
+    font-weight: 900;
+    letter-spacing: -2px;
+  }
+
+  .menu-header p {
+    max-width: 500px;
+    margin: 12px auto 0;
+    color: var(--gris-niebla);
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+
+  .menu-options {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .menu-option {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    min-height: 82px;
+    padding: 14px 18px;
+    box-sizing: border-box;
+    color: var(--pizarra);
+    text-decoration: none;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    box-shadow: 0 5px 15px rgba(62, 72, 82, 0.07);
+    transition:
+      transform 0.18s ease,
+      box-shadow 0.18s ease,
+      border-color 0.18s ease;
+  }
+
+  .menu-option:hover {
+    transform: translateX(7px);
+    box-shadow: 0 10px 25px rgba(62, 72, 82, 0.12);
+  }
+
+  .menu-option:active {
+    transform: translateX(4px);
+  }
+
+  .option-blue {
+    background: var(--cielo);
+  }
+
+  .option-lavender {
+    background: var(--lavanda);
+  }
+
+  .option-pink {
+    background: var(--rosa-suave);
+  }
+
+  .option-mint {
+    background: var(--menta);
+  }
+
+  .option-icon {
+    width: 13px;
+    height: 52px;
+    border-radius: 15px;
+    background: rgba(255, 255, 255, 0.45);
+  }
+
+  .option-text {
+    flex: 1;
+  }
+
+  .option-text h2 {
+    margin: 0 0 4px;
+    font-size: 1.1rem;
+    font-weight: 800;
+  }
+
+  .option-text p {
+    margin: 0;
+    color: var(--gris-niebla);
+    font-size: 0.85rem;
+    line-height: 1.35;
+  }
+
+  .option-arrow {
+    flex-shrink: 0;
+    font-size: 2rem;
+    color: var(--gris-niebla);
+    transition: transform 0.18s ease;
+  }
+
+  .menu-option:hover .option-arrow {
+    transform: translateX(5px);
+    color: var(--pizarra);
+  }
+
+  @media (max-width: 600px) {
+    .game-menu {
+      padding: 20px 12px;
+    }
+
+    .menu-container {
+      padding: 30px 18px;
+      border-radius: 25px;
+    }
+
+    .menu-header h1 {
+      font-size: 2.7rem;
+    }
+    .menu-header p {
+      font-size: 0.88rem;
+    }
+    .menu-option {
+      min-height: 72px;
+      gap: 12px;
+      padding: 11px 13px;
+    }
+    .option-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      font-size: 1.1rem;
+    }
+    .option-text h2 {
+      font-size: 0.95rem;
+    }
+    .option-text p {
+      font-size: 0.76rem;
+    }
+    .option-arrow {
+      font-size: 1.5rem;
+    }
+  }
+</style>
