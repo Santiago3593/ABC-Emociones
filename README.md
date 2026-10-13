@@ -47,3 +47,5 @@ Al ingresar el comando y darle a enter debe mostrar un apartado similar a:
 ┃ Network  http://192.168.3.229:4321/
            http://192.168.14.23:4321/
 ```
+
+Al ingresar a cualquiera de los enlaces que se mostraron si no hubo un error en nada, debería abrir el navegador y la página.
