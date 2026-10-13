@@ -1,14 +1,19 @@
-# Astro Starter Kit: Basics
+# Instalar Node.js
+
+Se necesita instalar Node.js version 22.12.0 o superior (https://nodejs.org/es/download)
+
+Si se esta usando  windows es recomendable instalar el Windows Intaller(.msi)
+
+Luego de abrir el instaler y hacer todo lo que pide ya debería estar instalado Node.js, 
+para comprobarlo, abrir un cmd si se esta windows y colocar el comando:
 
 ```sh
-pnpm create astro@latest -- --template basics
+node -v
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+# Abrir el servidor local del proyecto de Astro
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+Dentro del cmd tiene que estar ubicado en la carpeta del proyecto(ABC-Emociones):
 
 ```text
 /
@@ -26,21 +31,19 @@ Inside of your Astro project, you'll see the following folders and files:
 └── package.json
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Una vez seguro de que esta dentro de esa ruta en el cmd colocar el siguiente comando:
 
-## 🧞 Commands
+```sh
+npm run dev --host
+```
 
-All commands are run from the root of the project, from a terminal:
+# Ingresar a la página
 
-| Command                | Action                                           |
-| :--------------------- | :----------------------------------------------- |
-| `pnpm install`         | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
+Al ingresar el comando y darle a enter debe mostrar un apartado similar a:
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+```text
+ astro  v7.3.5 ready in 252 ms
+┃ Local    http://localhost:4321/
+┃ Network  http://192.168.3.229:4321/
+           http://192.168.14.23:4321/
+```
