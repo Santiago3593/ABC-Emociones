@@ -2,10 +2,10 @@
 
 Se necesita instalar Node.js version 22.12.0 o superior (https://nodejs.org/es/download)
 
-Si se esta usando  windows es recomendable instalar el Windows Intaller(.msi)
+Si se está usando  windows es recomendable instalar el Windows Installer(.msi)
 
-Luego de abrir el instaler y hacer todo lo que pide ya debería estar instalado Node.js, 
-para comprobarlo, abrir un cmd si se esta windows y colocar el comando:
+Luego de abrir el installer y hacer todo lo que pide ya debería estar instalado Node.js, 
+para comprobarlo, abrir un cmd si se está windows y colocar el comando:
 
 ```sh
 node -v
@@ -13,25 +13,13 @@ node -v
 
 # Abrir el servidor local del proyecto de Astro
 
-Dentro del cmd tiene que estar ubicado en la carpeta del proyecto(ABC-Emociones):
+Dentro del cmd tiene que estar ubicado en la carpeta del proyecto(ABC-Emociones), ejemplo:
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+```sh
+C:/Users/(Nombre de usuario de la computadora)/Documents/ABC-Emociones> (Aquí se colocan los comandos)
 ```
 
-Una vez seguro de que esta dentro de esa ruta en el cmd colocar el siguiente comando:
+Una vez seguro de que está dentro de esa ruta en el cmd colocar el siguiente comando:
 
 ```sh
 npm run dev --host
@@ -41,7 +29,7 @@ npm run dev --host
 
 Al ingresar el comando y darle a enter debe mostrar un apartado similar a:
 
-```text
+```sh
  astro  v7.3.5 ready in 252 ms
 ┃ Local    http://localhost:4321/
 ┃ Network  http://192.168.3.229:4321/
